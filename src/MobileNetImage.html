@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.13.0"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        #wrapper{ text-align:center; margin:10px auto; }
+        #overlay{ width:550px; margin-left: 14px;}
+        #output_image{ width:550px; }
+        .inline {
+            display: inline-block;
+        }
+    </style>
+</head>
+
+
+<body>
+    <center style="padding:10px">
+        <h4>
+            <div id="status">Model Loading ...</div>
+        </h4>
+
+    </center>
+    <div id="wrapper" class="inline">
+        <center style="padding:10px"><input type="file" accept="image/*" onchange="preview_image(event)"></center>
+        <img id="output_image" src="" style="max-width: 550px;" />
+</div>
+
+        <div class="inline"><center><span id="result_emotion"></span></center>
+        
+            <canvas id="overlay" src="" style=" margin-top:10px;" />
+        </div>
+    
+    <center style="padding:10px">
+        <div class="btn-group" style='margin-top:15px; margin-bottom:10px;'>
+            <button type="button" id="classify" class="btn btn-outline-primary" onclick="runModel()" href="#">Run! </button>
+        </div>
+
+    </center>
+</body>
+
+<script>
+    // check using phone or not
+    if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+        alert('Sorry, this website not support mobile divices currently.');
+        history.back();
+    }
+
+    // check using chrome
+    if (!window.chrome) {
+        if (confirm('This website needs Chrome browser!!!')) {
+            closewin();
+        } else {
+            history.back();
+        }
+    }
+
+    // check enable Experimental Web Platform features
+    if (window.FaceDetector == undefined) {
+        confirm('Please go to chrome://flags, and enable **Experimental Web Platform features**')
+        closewin();
+    }
+    // close window
+    function closewin() {
+        var win = window.open('', '_self', '');
+        win.close();
+    }
+
+    var cImg;
+    var model;
+    var emotion_labels = ["angry", "disgust", "fear", "happy", "sad", "surprise", "neutral"];
+    var emotion_colors = ["#ff0000", "#00a800", "#ff4fc1", "#ffe100", "#306eff", "#ff9d00", "#7c7c7c"];
+    let scoreThreshold = 0.5;
+    let minConfidence = 0.7;
+    let sizeType = 'lg';
+    var offset_x = 10;
+    var offset_y = 30;
+
+    loadModel('../models/mobilenetv1_models/model.json')
+
+    // create model
+    async function createModel(path) {
+        let model_tmp = await tf.loadModel(path)
+        return model_tmp
+    }
+
+    // load models
+    async function loadModel(path) {
+        var lbl = document.getElementById("status");
+        lbl.innerText = "Model Loading ..."
+        model = await createModel(path)
+
+        lbl.innerText = "Model Loaded !"
+    }
+    // show seleted image
+    function preview_image(event) {
+        var reader = new FileReader();
+        reader.onload = function() {
+            var output = document.getElementById('output_image');
+
+            output.src = reader.result;
+        }
+        reader.readAsDataURL(event.target.files[0]);
+        var c1 = document.getElementById('output_image')
+        cImg = c1
+    }
+    // convert image to model input format
+    function preprocess(imgData) {
+        return tf.tidy(() => {
+            let tensor = tf.fromPixels(imgData).toFloat();
+
+            tensor = tensor.resizeBilinear([64, 64])
+
+            tensor = tf.cast(tensor, 'float32')
+            const offset = tf.scalar(255.0);
+            // Normalize the image 
+            const normalized = tensor.div(offset);
+            //We add a dimension to get a batch shape 
+            const batched = normalized.expandDims(0)
+            return batched
+        })
+    }
+    // use chrome face detector 
+    async function detect() {
+        if (window.FaceDetector == undefined) {
+            console.error('Face Detection not supported');
+            return;
+        }
+        var emo = document.getElementById("result_emotion");
+        emo.innerHTML = " Waiting... "
+        var faceDetector = new FaceDetector();
+
+        var inputImgEl = document.getElementById("output_image")
+        const {
+            width,
+            height
+        } = inputImgEl
+        //        console.log(width, height)
+        let out_canvas = document.getElementById('overlay');
+        out_canvas.width = width
+        out_canvas.height = height
+        let ctx = out_canvas.getContext("2d");
+        let scale = 1;
+        ctx.drawImage(inputImgEl,
+            0, 0, inputImgEl.naturalWidth, inputImgEl.naturalHeight,
+            0, 0, out_canvas.width, out_canvas.height);
+
+        scale = out_canvas.width / inputImgEl.naturalWidth;
+
+        console.time('detect');
+        return faceDetector.detect(inputImgEl)
+            .then(faces => {
+                //                console.log(faces);
+                // Draw the faces on the <canvas>.
+
+                EmotionClassify(faces, scale)
+
+                console.timeEnd('detect');
+            })
+            .catch((e) => {
+                console.error("Boo, Face Detection failed: " + e);
+            });
+    }
+    // recognize cropped images
+    function EmotionClassify(faces, scale) {
+        var emo = document.getElementById("result_emotion");
+        if (faces.length != 0) {
+            let out_canvas = document.getElementById('overlay');
+            let ctx = out_canvas.getContext("2d");
+            ctx.lineWidth = 2;
+            ctx.font = "15px Arial"
+            for (var i = 0; i < faces.length; i++) {
+                var item = faces[i].boundingBox;
+                ctx.beginPath();
+                let s_x = Math.floor((item.x - offset_x / 2) * scale);
+                let s_y = Math.floor((item.y - offset_y / 2) * scale);
+                let s_w = Math.floor((item.width + offset_x) * scale);
+                let s_h = Math.floor((item.height + offset_y) * scale);
+
+                //                    let face = document.createElement('canvas');
+                let cT = out_canvas.getContext("2d").getImageData(s_x, s_y, s_w, s_h);
+                //                    cT.drawImage(inputImgEl, s_x, s_y, s_w, s_h, 0, 0, s_w, s_h)
+                //                console.log(cT)
+                cT = preprocess(cT);
+                z = model.predict(cT)
+                let index = z.argMax(1).dataSync()[0]
+                let label = emotion_labels[index];
+                //                console.log(label)
+                ctx.strokeStyle = emotion_colors[index];
+                ctx.rect(s_x, s_y, s_w, s_h);
+                ctx.stroke();
+                ctx.fillStyle = emotion_colors[index];
+                ctx.fillText(label, s_x, s_y);
+                ctx.closePath();
+            }
+            emo.innerHTML = "Result :  Done !!!"
+        } else {
+            console.log('NO FACE')
+            emo.innerHTML = "Result :  NO FACE !!!"
+        }
+
+    }
+
+
+    async function runModel() {
+
+        let cT = preprocess(cImg)
+        await detect()
+
+    }
+</script>
+
+</html>
