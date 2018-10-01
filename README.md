@@ -10,7 +10,7 @@ FaceDetector: Chrome on Android, macOS, Windows 10 platfrom
 2. Open **MobileNetImage.html** to upload imgaes to detect emotion or **MobileNetWebcam.html** to detect emotion real time
 
 ## Demo
-**Both demos are on our LAB server**
+**Both demos are on our [LAB](http://mirlab.org/index.asp) server**
 * [MobileNetImage.html](https://mirlab.org:444/demo/emotion_chrome_tf/test_tfjs.html)
 
 ![](https://github.com/kevinisbest/FrontEnd-EmotionDetection/blob/master/images/tfjs_upload.gif)
