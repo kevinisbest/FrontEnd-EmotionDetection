@@ -13,6 +13,7 @@ This repository use two methods to detect faces:
 FaceDetector: Chrome on Android, macOS, Windows 10 platfrom.
 Go to chrome browser ```chrome://flags/#enable-experimental-web-platform-features``` and enable the feature 
 <img src="https://i.imgur.com/7JhkpJn.png" width="500">
+
 * For **Yolov2Webcam.html** you can run on Chrome, Safari and Firefox.
 
 ## Demo
