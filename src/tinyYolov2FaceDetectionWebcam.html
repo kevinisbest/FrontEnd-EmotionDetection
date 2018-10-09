@@ -2,9 +2,9 @@
 <html>
 
 <head>
-    <script src="../dist/face-api.js"></script>
-    <script src="public/commons.js"></script>
-    <link rel="stylesheet" href="public/styles.css">
+    <script src="../../dist/face-api.js"></script>
+    <script src="../public/commons.js"></script>
+    <link rel="stylesheet" href="../public/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
@@ -20,7 +20,7 @@
         <div style="position: relative" class="margin">
             <video onplay="onPlay(this)" id="inputVideo" autoplay muted></video>
             <canvas id="overlay" />
-            <canvas id='canvas'/>
+            <canvas id='canvas' />
         </div>
         <center style="padding:10px">
             <div class="row input-field" style="margin-right: 20px;">
@@ -35,13 +35,13 @@
                 <label>Input Size</label>
             </div>
         </center>
-<!--
+        <!--
             <div class="row">
                 <label for="scoreThreshold">Score Threshold:</label>
                 <input disabled value="0.5" id="scoreThreshold" type="text" class="bold">
             </div>
 -->
-<!--
+        <!--
             <button class="waves-effect waves-light btn" onclick="onDecreaseThreshold()">
                 <i class="material-icons left">-</i>
             </button>
@@ -77,6 +77,10 @@
         let sizeType = '224'
         let modelLoaded = false
         var cImg;
+        var constraints = {
+            audio: false,
+            video: true
+        };
         var EmotionModel;
         var offset_x = 8;
         var offset_y = 15;
@@ -127,11 +131,11 @@
             const ts = Date.now()
             const result = await faceapi.tinyYolov2(videoEl, forwardParams)
             if (result.length != 0) {
-                
+
 
                 const context = canvas.getContext('2d')
                 context.drawImage(videoEl, 0, 0, width, height)
-                
+
                 let ctx = context;
                 ctx.lineWidth = 4;
                 ctx.font = "25px Arial"
@@ -147,6 +151,7 @@
 
                     let cT = ctx.getImageData(s_x, s_y, s_w, s_h);
                     cT = preprocess(cT);
+
                     z = EmotionModel.predict(cT)
                     let index = z.argMax(1).dataSync()[0]
                     let label = emotion_labels[index];
@@ -204,25 +209,30 @@
             })
         }
 
+        function successCallback(stream) {
+            var videoEl = $('#inputVideo').get(0)
+            videoEl.srcObject = stream;
+        }
+
+        function errorCallback(error) {
+            console.log("navigator.getUserMedia error: ", error);
+        }
+
         async function run() {
-            const Model_url = '../models/tiny_yolov2/tiny_yolov2_separable_conv_model-weights_manifest.json'
+            const Model_url = '../../weights/tiny_yolov2_separable_conv_model-weights_manifest.json'
             await faceapi.loadTinyYolov2Model(Model_url)
             modelLoaded = true
 
-            const videoEl = $('#inputVideo').get(0)
-            navigator.getUserMedia({
-                    video: {}
-                },
-                stream => videoEl.srcObject = stream,
-                err => console.error(err)
-            )
+            navigator.mediaDevices.getUserMedia(constraints)
+                .then(successCallback)
+                .catch(errorCallback);
 
             onPlay($('#inputVideo').get(0))
             $('#loader').hide()
         }
 
         $(document).ready(function() {
-            loadModel('../models/mobilenetV1_models/model.json')
+            loadModel('../../weights/mobilenetV1_models/model.json')
 
             const sizeTypeSelect = $('#sizeType')
             sizeTypeSelect.val(sizeType)
