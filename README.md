@@ -6,7 +6,8 @@ Real-time Emotion detection on browser using TensorFlow.js
 FaceDetector: Chrome on Android, macOS, Windows 10 platfrom
 
 ## Usage
-1. Go to chrome browser ```chrome://flags/#enable-experimental-web-platform-features``` and enable the feature ![](https://i.imgur.com/7JhkpJn.png)
+1. Go to chrome browser ```chrome://flags/#enable-experimental-web-platform-features``` and enable the feature 
+<img src="https://i.imgur.com/7JhkpJn.png" width="500">
 2. Open **MobileNetImage.html** to upload imgaes to detect emotion or **MobileNetWebcam.html** to detect emotion real time
 
 ## Demo
