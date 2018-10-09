@@ -11,9 +11,13 @@ FaceDetector: Chrome on Android, macOS, Windows 10 platfrom
 
 ## Demo
 **Both demos are on our [LAB](http://mirlab.org/index.asp) server**
+
 * [MobileNetImage.html](https://mirlab.org:444/demo/emotion_chrome_tf/test_tfjs.html)
 
 ![](https://github.com/kevinisbest/FrontEnd-EmotionDetection/blob/master/images/tfjs_upload.gif)
+
+* [tinyYolov2FaceDetectionWebcam.html](https://mirlab.org:444/demo/FrontEnd-EmotionDetection/src/tinyYolov2FaceDetectionWebcam.html)
+
 * [MobileNetWebcam.html](https://mirlab.org:444/demo/emotion_chrome_tf/test_webcam.html)
 
 ![](https://github.com/kevinisbest/FrontEnd-EmotionDetection/blob/master/images/tfjs_webcam.gif)
