@@ -1,24 +1,29 @@
 # FrontEnd-EmotionDetection
 Real-time Emotion detection on browser using TensorFlow.js
 
-## Requirements
-[Chrome Shape Detection API](https://www.chromestatus.com/feature/4757990523535360) :
-FaceDetector: Chrome on Android, macOS, Windows 10 platfrom
+This repository use two methods to detect faces:
 
-## Usage
-1. Go to chrome browser ```chrome://flags/#enable-experimental-web-platform-features``` and enable the feature 
+  1. [Chrome Shape Detection API](https://www.chromestatus.com/feature/4757990523535360)
+  2. [face-api.js](https://github.com/justadudewhohacks/face-api.js/)
+
+## Requirements
+* For **MobileNetImage.html** and **MobileNetWebcam.html**:
+
+  [Chrome Shape Detection API](https://www.chromestatus.com/feature/4757990523535360) :
+FaceDetector: Chrome on Android, macOS, Windows 10 platfrom.
+Go to chrome browser ```chrome://flags/#enable-experimental-web-platform-features``` and enable the feature 
 <img src="https://i.imgur.com/7JhkpJn.png" width="500">
-2. Open **MobileNetImage.html** to upload imgaes to detect emotion or **MobileNetWebcam.html** to detect emotion real time
+* For **Yolov2Webcam.html** you can run on Chrome, Safari and Firefox.
 
 ## Demo
 **Both demos are on our [LAB](http://mirlab.org/index.asp) server**
 
-* [MobileNetImage.html](https://mirlab.org:444/demo/emotion_chrome_tf/test_tfjs.html)
+* [MobileNetImage.html](https://mirlab.org:444/demo/FrontEnd-EmotionDetection/src/MobileNetImage.html)
 
 ![](https://github.com/kevinisbest/FrontEnd-EmotionDetection/blob/master/images/tfjs_upload.gif)
 
-* [tinyYolov2FaceDetectionWebcam.html](https://mirlab.org:444/demo/FrontEnd-EmotionDetection/src/tinyYolov2FaceDetectionWebcam.html)
+* [Yolov2Webcam.html](https://mirlab.org:444/demo/FrontEnd-EmotionDetection/src/Yolov2Webcam.html)
 
-* [MobileNetWebcam.html](https://mirlab.org:444/demo/emotion_chrome_tf/test_webcam.html)
+* [MobileNetWebcam.html](https://mirlab.org:444/demo/FrontEnd-EmotionDetection/src/MobileNetWebcam.html)
 
 ![](https://github.com/kevinisbest/FrontEnd-EmotionDetection/blob/master/images/tfjs_webcam.gif)
