@@ -2,9 +2,9 @@
 <html>
 
 <head>
-    <script src="../../dist/face-api.js"></script>
-    <script src="../public/commons.js"></script>
-    <link rel="stylesheet" href="../public/styles.css">
+    <script src="../dist/face-api.js"></script>
+    <script src="public/commons.js"></script>
+    <link rel="stylesheet" href="public/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
@@ -65,7 +65,7 @@
             <a id="lnk" onclick="loadModel('../../weights/mobilenetV1_models/model.json')" href="#">load</a>
         </div>
 -->
-        <canvas id="faceCanvas" width="200" height="200"></canvas>
+    
     </div>
     <style>
         #status {
@@ -219,20 +219,19 @@
         }
 
         async function run() {
-            const Model_url = '../../weights/tiny_yolov2_separable_conv_model-weights_manifest.json'
+            const Model_url = '../models/tiny_yolov2/tiny_yolov2_separable_conv_model-weights_manifest.json'
             await faceapi.loadTinyYolov2Model(Model_url)
             modelLoaded = true
 
             navigator.mediaDevices.getUserMedia(constraints)
                 .then(successCallback)
                 .catch(errorCallback);
-
             onPlay($('#inputVideo').get(0))
             $('#loader').hide()
         }
 
         $(document).ready(function() {
-            loadModel('../../weights/mobilenetV1_models/model.json')
+            loadModel('../models/mobilenetV1_models/model.json')
 
             const sizeTypeSelect = $('#sizeType')
             sizeTypeSelect.val(sizeType)
