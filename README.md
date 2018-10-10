@@ -1,10 +1,12 @@
 # FrontEnd-EmotionDetection
-Real-time Emotion detection on browser using TensorFlow.js
-
-This repository use two methods to detect faces:
+This is a real-time Emotion detection using [TensorFlow.js](https://js.tensorflow.org/) to load a pretrained model into the browser .
+## Abstract 
+* This repository use two methods to detect faces:
 
   1. [Chrome Shape Detection API](https://www.chromestatus.com/feature/4757990523535360)
   2. [face-api.js](https://github.com/justadudewhohacks/face-api.js/)
+
+* Microsoft [FERPlus](https://github.com/Microsoft/FERPlus) as the dataset to train the emotion-detect model. And use [TensorFlow.js converter](https://github.com/tensorflow/tfjs-converter) convert Keras model to .json file for loading and running Javascript inference.
 
 ## Requirements
 * For **MobileNetImage.html** and **MobileNetWebcam.html**:
