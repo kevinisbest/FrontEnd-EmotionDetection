@@ -45,15 +45,19 @@
         <!--        <center><span id="emotion_video"></span></center>-->
         <canvas id="canvas" src="" style=" margin-top:10px;" />
     </div>
+    <div id = "thank">
+        <center style="padding:10px; margin:5px">
+            <div>Maintained by <a href='http://mirlab.org/users/kevin.hsiao/'>Kevin Hsiao </a> and special thanks <a href="mailto:haochun.fu@mirlab.org" target="_top">Haochun Fu</a></div>
+        </center>
+    </div>
 </body>
 <script>
-    
     // check using phone or not
     if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
         alert('Sorry, this website not support mobile divices currently.');
         history.back();
     }
-    
+
     // check using chrome
     if (!window.chrome) {
         if (confirm('This website needs Chrome browser!!!')) {
@@ -62,7 +66,7 @@
             history.back();
         }
     }
-    
+
     var constraints = {
         video: true
     };
@@ -99,18 +103,6 @@
         $body.appendChild($video)
         return $video
     }
-
-
-    function handleSuccess(stream) {
-        window.stream = stream; // only to make stream available to console
-        video.srcObject = stream;
-
-        //        imcanvas.src = canvas.toDataURL('image/png');
-        //        imcanvas.onload = function() {
-        //            detect();
-        //        }
-    }
-
 
     function handleError(error) {
         if (error.name === 'DevicesNotFoundError') {
@@ -240,6 +232,8 @@
     }
 
     function startVideo() {
+        var x = document.getElementById("thank");
+        x.style.display = "none";
         let elem = document.getElementById('start');
         elem.parentNode.removeChild(elem);
         var status = document.getElementById('status');

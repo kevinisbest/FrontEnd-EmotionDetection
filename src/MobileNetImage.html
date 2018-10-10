@@ -10,7 +10,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <style>
         #wrapper{ text-align:center; margin:10px auto; }
-        #overlay{ width:550px; margin-left: 14px;}
         #output_image{ width:550px; }
         .inline {
             display: inline-block;
@@ -27,21 +26,23 @@
 
     </center>
     <div id="wrapper" class="inline">
-        <center style="padding:10px"><input type="file" accept="image/*" onchange="preview_image(event)"></center>
+        <center style="padding:10px"><input id='uploadFile' type="file" accept="image/*" onchange="preview_image(event)"></center>
         <img id="output_image" src="" style="max-width: 550px;" />
-</div>
+    </div>
 
-        <div class="inline"><center><span id="result_emotion"></span></center>
-        
-            <canvas id="overlay" src="" style=" margin-top:10px;" />
-        </div>
-    
+    <div class="inline">
+        <center><span id="result_emotion"></span></center>
+
+        <canvas id="overlay" src="" style=" margin-top:10px;" />
+    </div>
+
     <center style="padding:10px">
         <div class="btn-group" style='margin-top:15px; margin-bottom:10px;'>
             <button type="button" id="classify" class="btn btn-outline-primary" onclick="runModel()" href="#">Run! </button>
         </div>
-
+        <div>Maintained by <a href='http://mirlab.org/users/kevin.hsiao/'>Kevin Hsiao <br></a> Special thanks go to the help of <a href="mailto:haochun.fu@mirlab.org" target="_top">Haochun Fu</a></div>
     </center>
+
 </body>
 
 <script>
@@ -80,7 +81,6 @@
     let sizeType = 'lg';
     var offset_x = 10;
     var offset_y = 30;
-
     loadModel('../models/mobilenetv1_models/model.json')
 
     // create model
@@ -208,10 +208,13 @@
 
 
     async function runModel() {
-
-        let cT = preprocess(cImg)
-        await detect()
-
+        console.log(cImg)
+        if (cImg) {
+            let cT = preprocess(cImg)
+            await detect()
+        } else {
+            alert('Please select an image file')
+        }
     }
 </script>
 

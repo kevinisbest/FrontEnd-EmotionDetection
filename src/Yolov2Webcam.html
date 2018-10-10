@@ -17,13 +17,18 @@
         <div class="progress" id="loader">
             <div class="indeterminate"></div>
         </div>
+        <h5 >
+            <span id="status">Model Loading ...</span>
+        </h5>
         <div style="position: relative" class="margin">
             <video onplay="onPlay(this)" id="inputVideo" autoplay muted></video>
             <canvas id="overlay" />
             <canvas id='canvas' />
         </div>
+        <h5>Increase Input Size to get higher accuracy</h5>
         <center style="padding:10px">
             <div class="row input-field" style="margin-right: 20px;">
+
                 <select id="sizeType">
                     <option value="" disabled selected>Input Size:</option>
                     <option value="160">160 x 160</option>
@@ -32,9 +37,11 @@
                     <option value="416">416 x 416</option>
                     <option value="608">608 x 608</option>
                 </select>
-                <label>Input Size</label>
+                <label>Input Size </label>
             </div>
+
         </center>
+
         <!--
             <div class="row">
                 <label for="scoreThreshold">Score Threshold:</label>
@@ -59,17 +66,23 @@
                 <input disabled value="-" id="fps" type="text" class="bold">
             </div>
         </div>
+        <center style="padding:10px">
+        <div>Maintained by <a href='http://mirlab.org/users/kevin.hsiao/'>Kevin Hsiao <br></a> Special thanks go to the help of <a href="mailto:haochun.fu@mirlab.org" target="_top">Haochun Fu</a></div></center>
         <!--
         <div id="status">Click Image to load its model </div>
         <div style="padding:20px" style="border:1px solid #000000;">
             <a id="lnk" onclick="loadModel('../../weights/mobilenetV1_models/model.json')" href="#">load</a>
         </div>
 -->
-    
+
     </div>
     <style>
         #status {
             font-family: Geneva, Tahoma, Verdana, sans-serif;
+        }
+
+        .inline {
+            display: inline-block;
         }
     </style>
     <script>
@@ -79,11 +92,14 @@
         var cImg;
         var constraints = {
             audio: false,
-            video: true
+            video: {
+                width: 640,
+                height: 480
+            }
         };
         var EmotionModel;
         var offset_x = 8;
-        var offset_y = 15;
+        var offset_y = 10;
         var emotion_labels = ["angry", "disgust", "fear", "happy", "sad", "surprise", "neutral"];
         var emotion_colors = ["#ff0000", "#00a800", "#ff4fc1", "#ffe100", "#306eff", "#ff9d00", "#7c7c7c"];
 
@@ -172,6 +188,8 @@
             //                withScore: false
             //            })
             setTimeout(() => onPlay(videoEl))
+            var status = document.getElementById('status');
+            status.innerHTML = "Running the model ... ";
         }
         async function loadNetWeights(uri) {
             return new Float32Array(await (await fetch(uri)).arrayBuffer())
@@ -215,7 +233,9 @@
         }
 
         function errorCallback(error) {
+            alert(error)
             console.log("navigator.getUserMedia error: ", error);
+            //            alert("navigator.getUserMedia error: ", error)
         }
 
         async function run() {
@@ -223,9 +243,13 @@
             await faceapi.loadTinyYolov2Model(Model_url)
             modelLoaded = true
 
+            var status = document.getElementById('status');
+            status.innerHTML = "Initializing the camera ... ";
+
             navigator.mediaDevices.getUserMedia(constraints)
                 .then(successCallback)
                 .catch(errorCallback);
+
             onPlay($('#inputVideo').get(0))
             $('#loader').hide()
         }
