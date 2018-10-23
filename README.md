@@ -1,5 +1,9 @@
 # FrontEnd-EmotionDetection
-This is a real-time Emotion detection using [TensorFlow.js](https://js.tensorflow.org/) to load a pretrained model into the browser .
+### This is a real-time Emotion detection using [TensorFlow.js](https://js.tensorflow.org/) to load a pretrained model into the browser .
+[![Packagist](https://img.shields.io/badge/TensorFlow-1.10.1-orange.svg)]()
+[![Packagist](https://img.shields.io/badge/Keras-2.2.2-blue.svg)]()
+[![Packagist](https://img.shields.io/badge/Python-3.5.0-blue.svg)]()
+[![Packagist](https://img.shields.io/badge/TensorFlow.js-0.12.6-orange.svg)]()
 ## Abstract 
 * This repository use two methods to detect faces:
 
@@ -30,5 +34,5 @@ Go to chrome browser ```chrome://flags/#enable-experimental-web-platform-feature
 ![](https://github.com/kevinisbest/FrontEnd-EmotionDetection/blob/master/images/yolo_webcam.gif)
 
 * [MobileNetWebcam.html](https://mirlab.org:444/demo/FrontEnd-EmotionDetection/src/MobileNetWebcam.html)
-
+ 
 ![](https://github.com/kevinisbest/FrontEnd-EmotionDetection/blob/master/images/tfjs_webcam.gif)
