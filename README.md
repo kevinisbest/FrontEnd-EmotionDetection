@@ -6,14 +6,15 @@
 [![Packagist](https://img.shields.io/badge/TensorFlow.js-0.12.6-orange.svg)]()
 ## Abstract 
 ### Detect faces
-* This repository use two methods to detect faces:
+* We use two methods to detect faces:
 
   1. [Chrome Shape Detection API](https://www.chromestatus.com/feature/4757990523535360)
   2. [face-api.js](https://github.com/justadudewhohacks/face-api.js/)
   
 ### Dataset
-1. Microsoft [FERPlus](https://github.com/Microsoft/FERPlus) as one of the dataset to train the emotion-detect model. 
-2. Real-world Affective Faces Database [(RAF-DB)](http://www.whdeng.cn/RAF/model1.html) as another dataset.
+* We combine two datasets:
+  1. Microsoft [FERPlus](https://github.com/Microsoft/FERPlus) as one of the dataset to train the emotion-detect model. 
+  2. Real-world Affective Faces Database [(RAF-DB)](http://www.whdeng.cn/RAF/model1.html) as another dataset.
 
 ### Convert Model
 * Use [TensorFlow.js converter](https://github.com/tensorflow/tfjs-converter) convert Keras model to .json file for loading and running Javascript inference.
