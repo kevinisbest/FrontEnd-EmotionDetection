@@ -5,12 +5,18 @@
 [![Packagist](https://img.shields.io/badge/Python-3.5.0-blue.svg)]()
 [![Packagist](https://img.shields.io/badge/TensorFlow.js-0.12.6-orange.svg)]()
 ## Abstract 
+### Detect faces
 * This repository use two methods to detect faces:
 
   1. [Chrome Shape Detection API](https://www.chromestatus.com/feature/4757990523535360)
   2. [face-api.js](https://github.com/justadudewhohacks/face-api.js/)
+  
+### Dataset
+1. Microsoft [FERPlus](https://github.com/Microsoft/FERPlus) as one of the dataset to train the emotion-detect model. 
+2. Real-world Affective Faces Database [(RAF-DB)](http://www.whdeng.cn/RAF/model1.html) as another dataset.
 
-* Microsoft [FERPlus](https://github.com/Microsoft/FERPlus) as the dataset to train the emotion-detect model. And use [TensorFlow.js converter](https://github.com/tensorflow/tfjs-converter) convert Keras model to .json file for loading and running Javascript inference.
+### Convert Model
+* Use [TensorFlow.js converter](https://github.com/tensorflow/tfjs-converter) convert Keras model to .json file for loading and running Javascript inference.
 
 ## Requirements
 * For **MobileNetImage.html** and **MobileNetWebcam.html**:
@@ -25,14 +31,14 @@ Go to chrome browser ```chrome://flags/#enable-experimental-web-platform-feature
 ## Demo
 **All demos are on our [LAB](http://mirlab.org/index.asp) server**
 
-* [MobileNetImage.html](https://mirlab.org:444/demo/FrontEnd-EmotionDetection/src/MobileNetImage.html)
+* [MobileNetImage.html](https://mirlab.org:444/demo/FrontEnd-EmotionDetection/src/MobileNetImage.html) ( Chrome Shape Detection API )
 
 ![](https://github.com/kevinisbest/FrontEnd-EmotionDetection/blob/master/images/tfjs_upload.gif)
 
-* [Yolov2Webcam.html](https://mirlab.org:444/demo/FrontEnd-EmotionDetection/src/Yolov2Webcam.html)
+* [Yolov2Webcam.html](https://mirlab.org:444/demo/FrontEnd-EmotionDetection/src/Yolov2Webcam.html) ( face-api )
 
 ![](https://github.com/kevinisbest/FrontEnd-EmotionDetection/blob/master/images/yolo_webcam.gif)
 
-* [MobileNetWebcam.html](https://mirlab.org:444/demo/FrontEnd-EmotionDetection/src/MobileNetWebcam.html)
+* [MobileNetWebcam.html](https://mirlab.org:444/demo/FrontEnd-EmotionDetection/src/MobileNetWebcam.html) ( Chrome Shape Detection API )
  
 ![](https://github.com/kevinisbest/FrontEnd-EmotionDetection/blob/master/images/tfjs_webcam.gif)
