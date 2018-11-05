@@ -23,7 +23,7 @@ Go to chrome browser ```chrome://flags/#enable-experimental-web-platform-feature
 * For **Yolov2Webcam.html** you can run on Chrome, Safari and Firefox.
 
 ## Demo
-**Both demos are on our [LAB](http://mirlab.org/index.asp) server**
+**All demos are on our [LAB](http://mirlab.org/index.asp) server**
 
 * [MobileNetImage.html](https://mirlab.org:444/demo/FrontEnd-EmotionDetection/src/MobileNetImage.html)
 
