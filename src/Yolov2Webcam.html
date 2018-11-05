@@ -216,7 +216,7 @@
             return tf.tidy(() => {
                 let tensor = tf.fromPixels(imgData).toFloat();
 
-                tensor = tensor.resizeBilinear([224, 224])
+                tensor = tensor.resizeBilinear([100, 100])
 
                 tensor = tf.cast(tensor, 'float32')
                 const offset = tf.scalar(255.0);
