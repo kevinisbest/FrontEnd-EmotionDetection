@@ -38,7 +38,7 @@ Note, that wearing glasses might decrease the accuracy of the prediction results
 
 ![](https://github.com/kevinisbest/FrontEnd-EmotionDetection/blob/master/images/tfjs_upload.gif)
 
-* [Yolov2Webcam.html](https://mirlab.org:444/demo/FrontEnd-EmotionDetection/src/Yolov2Webcam.html) ( face detection via face-api )
+* [Yolov2Webcam.html](https://mirlab.org:444/demo/FrontEnd-EmotionDetection/src/Yolov2Webcam.html) ( face detection via [face-api tiny-face-detector](https://github.com/justadudewhohacks/face-api.js#tiny-face-detector) )
 
 ![](https://github.com/kevinisbest/FrontEnd-EmotionDetection/blob/master/images/yolo_webcam.gif)
 
