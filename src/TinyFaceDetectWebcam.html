@@ -2,13 +2,14 @@
 <html>
 
 <head>
-    <script src="../dist/face-api.js"></script>
+    <script src="../dist_new/face-api.js"></script>
     <script src="public/commons.js"></script>
     <link rel="stylesheet" href="public/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.12.6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.14.1/dist/tf.min.js"></script>
+
 <!--    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.13.3/dist/tf.min.js"> </script>-->
 </head>
 
@@ -88,7 +89,7 @@
     </style>
     <script>
         let scoreThreshold = 0.5
-        let sizeType = '224'
+        let sizeType = '160'
         let modelLoaded = false
         var cImg;
         var constraints = {
@@ -99,8 +100,8 @@
             }
         };
         var EmotionModel;
-        var offset_x = 8;
-        var offset_y = 10;
+        var offset_x = 34;
+        var offset_y = 20;
         var emotion_labels = ["angry", "disgust", "fear", "happy", "sad", "surprise", "neutral"];
         var emotion_colors = ["#ff0000", "#00a800", "#ff4fc1", "#ffe100", "#306eff", "#ff9d00", "#7c7c7c"];
 
@@ -146,7 +147,9 @@
             }
 
             const ts = Date.now()
-            const result = await faceapi.tinyYolov2(videoEl, forwardParams)
+            const result = await faceapi.detectAllFaces(videoEl, new faceapi.TinyFaceDetectorOptions(forwardParams))
+            console.result
+//            const result = await faceapi.tinyYolov2(videoEl, forwardParams)
             if (result.length != 0) {
 
 
@@ -161,11 +164,15 @@
                 for (var i = 0; i < result.length; i++) {
                     ctx.beginPath();
                     var item = result[i].box;
-                    let s_x = Math.floor(item.x - offset_x / 2);
-                    let s_y = Math.floor(item.y - offset_y / 2);
-                    let s_w = Math.floor(item.width + offset_x);
-                    let s_h = Math.floor(item.height + offset_y);
-
+                    let s_x = Math.floor(item._x+offset_x);
+                    if (item.y<offset_y){
+                        var s_y = Math.floor(item._y);
+                    }
+                    else{
+                        var s_y = Math.floor(item._y-offset_y);
+                    }
+                    let s_w = Math.floor(item._width-offset_x);
+                    let s_h = Math.floor(item._height);
                     let cT = ctx.getImageData(s_x, s_y, s_w, s_h);
                     cT = preprocess(cT);
 
@@ -240,8 +247,8 @@
         }
 
         async function run() {
-            const Model_url = '../models/tiny_yolov2/tiny_yolov2_separable_conv_model-weights_manifest.json'
-            await faceapi.loadTinyYolov2Model(Model_url)
+            const Model_url = '../models/tiny_face_detector/tiny_face_detector_model-weights_manifest.json'
+            await faceapi.loadTinyFaceDetectorModel(Model_url)
             modelLoaded = true
 
             var status = document.getElementById('status');
