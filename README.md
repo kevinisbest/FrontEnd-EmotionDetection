@@ -27,7 +27,7 @@ FaceDetector: Chrome on Android, macOS, Windows 10 platfrom.
 Go to chrome browser ```chrome://flags/#enable-experimental-web-platform-features``` and enable the feature 
 <img src="https://i.imgur.com/7JhkpJn.png" width="500">
 
-* For **Yolov2Webcam.html** you can run on Chrome, Safari and Firefox.
+* For **TinyFaceDetectWebcam.html** you can run on Chrome, Safari and Firefox.
 
 ## Demo
 Note, that wearing glasses might decrease the accuracy of the prediction results.
@@ -38,7 +38,7 @@ Note, that wearing glasses might decrease the accuracy of the prediction results
 
 ![](https://github.com/kevinisbest/FrontEnd-EmotionDetection/blob/master/images/tfjs_upload.gif)
 
-* [Yolov2Webcam.html](https://mirlab.org:444/demo/FrontEnd-EmotionDetection/src/Yolov2Webcam.html) ( face detection via [face-api tiny-face-detector](https://github.com/justadudewhohacks/face-api.js#tiny-face-detector) )
+* [TinyFaceDetectWebcam.html](https://mirlab.org:444/demo/FrontEnd-EmotionDetection/src/TinyFaceDetectWebcam.html) ( face detection via [face-api tiny-face-detector](https://github.com/justadudewhohacks/face-api.js#tiny-face-detector) )
 
 ![](https://github.com/kevinisbest/FrontEnd-EmotionDetection/blob/master/images/yolo_webcam.gif)
 
