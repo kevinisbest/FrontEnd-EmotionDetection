@@ -30,6 +30,8 @@ Go to chrome browser ```chrome://flags/#enable-experimental-web-platform-feature
 * For **Yolov2Webcam.html** you can run on Chrome, Safari and Firefox.
 
 ## Demo
+Note, that wearing glasses might decrease the accuracy of the prediction results.
+
 **All demos are on our [LAB](http://mirlab.org/index.asp) server**
 
 * [MobileNetImage.html](https://mirlab.org:444/demo/FrontEnd-EmotionDetection/src/MobileNetImage.html) ( Chrome Shape Detection API )
