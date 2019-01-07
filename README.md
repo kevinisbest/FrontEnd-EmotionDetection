@@ -30,16 +30,18 @@ Go to chrome browser ```chrome://flags/#enable-experimental-web-platform-feature
 * For **Yolov2Webcam.html** you can run on Chrome, Safari and Firefox.
 
 ## Demo
+Note, that wearing glasses might decrease the accuracy of the prediction results.
+
 **All demos are on our [LAB](http://mirlab.org/index.asp) server**
 
-* [MobileNetImage.html](https://mirlab.org:444/demo/FrontEnd-EmotionDetection/src/MobileNetImage.html) ( Chrome Shape Detection API )
+* [MobileNetImage.html](https://mirlab.org:444/demo/FrontEnd-EmotionDetection/src/MobileNetImage.html) ( face detection via Chrome Shape Detection API )
 
 ![](https://github.com/kevinisbest/FrontEnd-EmotionDetection/blob/master/images/tfjs_upload.gif)
 
-* [Yolov2Webcam.html](https://mirlab.org:444/demo/FrontEnd-EmotionDetection/src/Yolov2Webcam.html) ( face-api )
+* [Yolov2Webcam.html](https://mirlab.org:444/demo/FrontEnd-EmotionDetection/src/Yolov2Webcam.html) ( face detection via [face-api tiny-face-detector](https://github.com/justadudewhohacks/face-api.js#tiny-face-detector) )
 
 ![](https://github.com/kevinisbest/FrontEnd-EmotionDetection/blob/master/images/yolo_webcam.gif)
 
-* [MobileNetWebcam.html](https://mirlab.org:444/demo/FrontEnd-EmotionDetection/src/MobileNetWebcam.html) ( Chrome Shape Detection API )
+* [MobileNetWebcam.html](https://mirlab.org:444/demo/FrontEnd-EmotionDetection/src/MobileNetWebcam.html) ( face detection via Chrome Shape Detection API )
  
 ![](https://github.com/kevinisbest/FrontEnd-EmotionDetection/blob/master/images/tfjs_webcam.gif)
