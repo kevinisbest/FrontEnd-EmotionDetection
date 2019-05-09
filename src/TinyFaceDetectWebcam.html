@@ -2,13 +2,13 @@
 <html>
 
 <head>
-    <script src="../dist/face-api.js"></script>
+    <script src="../dist_new/face-api.js"></script>
     <script src="public/commons.js"></script>
     <link rel="stylesheet" href="public/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.14.1/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.0/dist/tf.min.js"></script>
 
 <!--    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.13.3/dist/tf.min.js"> </script>-->
 </head>
@@ -100,7 +100,7 @@
             }
         };
         var EmotionModel;
-        var offset_x = 34;
+        var offset_x = 27;
         var offset_y = 20;
         var emotion_labels = ["angry", "disgust", "fear", "happy", "sad", "surprise", "neutral"];
         var emotion_colors = ["#ff0000", "#00a800", "#ff4fc1", "#ffe100", "#306eff", "#ff9d00", "#7c7c7c"];
@@ -204,7 +204,7 @@
         }
         // create model
         async function createModel(path) {
-            let model = await tf.loadModel(path)
+            let model = await tf.loadLayersModel(path)
             return model
         }
         // load emotion model
@@ -221,7 +221,7 @@
 
         function preprocess(imgData) {
             return tf.tidy(() => {
-                let tensor = tf.fromPixels(imgData).toFloat();
+                let tensor = tf.browser.fromPixels(imgData).toFloat();
 
                 tensor = tensor.resizeBilinear([100, 100])
 
